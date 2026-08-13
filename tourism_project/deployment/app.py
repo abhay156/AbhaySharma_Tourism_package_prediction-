@@ -243,12 +243,14 @@ if st.button(
     })
 
 
-    # Make prediction
-    prediction = model.predict(input_data)[0]
+    # Make prediction using the same threshold used during evaluation
+    probability = model.predict_proba(input_data)[0][1]
 
-    probability = model.predict_proba(
-        input_data
-    )[0][1]
+    classification_threshold = 0.45
+
+    prediction = int(
+        probability >= classification_threshold
+    )
 
 
     # Display result
